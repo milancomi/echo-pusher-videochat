@@ -14,10 +14,12 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
 class NewComment implements ShouldBroadcastNow
 {
+  // +++ Implement je dodato
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
 
     public $comment;
+    // +++ Mora biti public zbog  pusher-a
 
     /**
      * Create a new event instance.
@@ -27,6 +29,7 @@ class NewComment implements ShouldBroadcastNow
     public function __construct(Comment $comment)
     {
       $this->comment = $comment;
+      // +++ Ukljucen comment da bih uzeo ID kao flag za dalje
     }
 
     /**
@@ -36,11 +39,14 @@ class NewComment implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
+
         return new Channel('post.'.$this->comment->post->id);
     }
 
     public function broadcastWith()
     {
+      // +++ customize data for pusher
+      // PAYLOAD
       return [
         'body' => $this->comment->body,
         'created_at' => $this->comment->created_at->toFormattedDateString(),

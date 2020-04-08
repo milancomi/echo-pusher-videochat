@@ -56,7 +56,7 @@
       },
       mounted() {
         this.getComments();
-        this.listen();
+        this.listen(); /* Laravel Echo func*/
       },
       methods: {
         getComments() {
@@ -74,7 +74,7 @@
             body: this.commentBox
           })
           .then((response) => {
-            this.comments.unshift(response.data);
+            this.comments.unshift(response.data); /* postavi komentar prvi jer je najnoviji*/
             this.commentBox = '';
           })
           .catch((error) => {
@@ -84,7 +84,8 @@
         listen() {
           Echo.channel('post.'+this.post.id)
               .listen('NewComment', (comment) => {
-                this.comments.unshift(comment);
+        /*        payload je dosao ovde*/
+                this.comments.unshift(comment); /* postavi komentar prvi jer je najnoviji*/
               })
         }
       }

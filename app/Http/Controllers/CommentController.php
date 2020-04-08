@@ -7,7 +7,6 @@ use App\Post;
 use App\Comment;
 use Auth;
 use App\Events\NewComment;
-
 class CommentController extends Controller
 {
   public function index(Post $post)
@@ -23,7 +22,13 @@ class CommentController extends Controller
     ]);
 
     $comment = Comment::where('id', $comment->id)->with('user')->first();
-    broadcast(new NewComment($comment))->toOthers();
+
+
+    // event(new Comment($comment));
+    // Listener je na frontendu (Laravel Echo)
+    //  event(new NewComment($comment));
+     broadcast(new NewComment($comment))->toOthers();
+
     return $comment->toJson();
   }
 }
