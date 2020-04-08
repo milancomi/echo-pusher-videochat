@@ -40,8 +40,10 @@ class NewComment implements ShouldBroadcastNow
     public function broadcastOn()
     {
 
-        return new Channel('post.'.$this->comment->post->id);
-    }
+        // return new Channel('post.'.$this->comment->post->id);
+        return new PrivateChannel('post.'.$this->comment->post->id);
+
+      }
 
     public function broadcastWith()
     {

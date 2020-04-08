@@ -14,3 +14,16 @@
 Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+
+Broadcast::channel('post.{id}', function ($user, $id) {
+    return true;
+// samo logovani imaju access u private
+
+    // return $user->id == \App\Post::find($id)->user_id;
+});
+
+// return $user->id == \App\Post::find($id)->user_id;
+// samo autor ima access
+
+

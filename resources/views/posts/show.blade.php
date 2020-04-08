@@ -82,7 +82,8 @@
           })
         },
         listen() {
-          Echo.channel('post.'+this.post.id)
+        /*  Echo.channel('post.'+this.post.id)  */
+          Echo.private('post.'+this.post.id)
               .listen('NewComment', (comment) => {
         /*        payload je dosao ovde*/
                 this.comments.unshift(comment); /* postavi komentar prvi jer je najnoviji*/
